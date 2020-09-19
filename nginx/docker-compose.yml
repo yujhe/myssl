@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./default.conf.template:/etc/nginx/templates/default.conf.template
+      - ./ssl/:/etc/nginx/ssl/
+    ports:
+      - "8080:80"
+      - "443:443"

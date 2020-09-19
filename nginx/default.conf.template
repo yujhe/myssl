@@ -1,0 +1,25 @@
+server {
+    listen              80;
+    listen              443 ssl;
+    keepalive_timeout   70;
+
+    # server certificate, should contains ca chain in that file
+    ssl_certificate     /etc/nginx/ssl/server.chained.cert.pem;
+    ssl_certificate_key /etc/nginx/ssl/server.key.pem;
+
+    # revocation list of ca, should contains all crl of ca
+    ssl_crl             /etc/nginx/ssl/ca.chained.crl.pem;
+
+    # ca chain that used to verify client's certificate
+    ssl_client_certificate /etc/nginx/ssl/ca.chained.cert.pem;
+    ssl_verify_client on;
+    ssl_verify_depth 1;
+
+    error_log /var/log/nginx/error.log debug;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+}
